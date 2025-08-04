@@ -1,0 +1,41 @@
+import { useTranslation } from 'react-i18next'
+import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
+import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
+import { GeneralSettingsList } from './components/GeneralSettingsList'
+
+
+const GeneralSettingsPage = () => {
+  const {t}=useTranslation()
+  const brandsBreadcrumbs: Array<PageLink> = [
+    {
+      title: t('General Settings'),
+      path: '/apps/general-settings/all',
+      isSeparator: false,
+      isActive: false,
+    },
+    {
+      title: '',
+      path: '',
+      isSeparator: true,
+      isActive: false,
+    },
+  ]
+  return (
+    <Routes>
+      <Route element={<Outlet />}>
+        <Route
+          path='/all'
+          element={
+            <>
+              <PageTitle breadcrumbs={brandsBreadcrumbs}>{t('General Settings')}</PageTitle>
+              <GeneralSettingsList />
+            </>
+          }
+        />
+      </Route>
+      <Route index element={<Navigate to='/apps/general-settings/all' />} />
+    </Routes>
+  )
+}
+
+export default GeneralSettingsPage

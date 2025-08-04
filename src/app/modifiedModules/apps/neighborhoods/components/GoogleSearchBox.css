@@ -1,0 +1,17 @@
+
+reach-portal{
+    color: black!important;
+    z-index: 10000000000000000!important;
+}
+.comboo{
+    z-index: 10000000000000000!important;
+    
+}
+[data-reach-combobox-popover]{
+    color: black!important;
+    z-index: 10000000000000000!important;
+}
+[data-reach-combobox-list]{
+    -webkit-user-select: initial!important; 
+    user-select: initial!important;
+}
