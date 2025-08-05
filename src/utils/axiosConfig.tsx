@@ -6,7 +6,8 @@ import { toast } from 'react-toastify'
 // const BASE_URL =`https://rd-aroma-api.invoacdmy.com`
 // const BASE_URL =`https://rd-aroma-api.pavilion-teck.com`
 // const BASE_URL =`https://rd-aroma-api.ai2digital.com`
-const BASE_URL = `https://khira-store-api.invogp.com`
+// const BASE_URL = `https://khira-store-api.invogp.com`
+const BASE_URL = `https://dashboard.khirastore.com/api`
 // const BASE_URL ='https://rd-aroma-backend.invogp.com'
 // const BASE_URL = `http://localhost:5555`
 // const BASE_URL =`${process.env.REACT_APP_API_KEY}`
