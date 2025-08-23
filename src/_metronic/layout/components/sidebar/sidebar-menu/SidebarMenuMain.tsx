@@ -79,6 +79,12 @@ const SidebarMenuMain = () => {
         title={t('Static Pages')}
         fontIcon='bi-layers'
       />
+      <SidebarMenuItem
+        to='/apps/sliders/all'
+        icon='/media/icons/duotune/general/gen051.svg'
+        title={t('Sliders')}
+        fontIcon='bi-layers'
+      />
       {/* <SidebarMenuItem
         to='/apps/advertisements/all'
         icon='/media/icons/duotune/general/gen051.svg'

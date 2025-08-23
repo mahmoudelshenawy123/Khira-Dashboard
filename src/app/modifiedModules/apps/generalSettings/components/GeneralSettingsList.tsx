@@ -11,6 +11,7 @@ const GeneralSettingsList = () => {
               "Authorization": `Bearer ${localStorage.getItem('token')}`
           }
       }).then(res=>{
+        console.log("res.data.data settings", res.data.data)
             setSettings(res.data.data)
         }).catch(err=>{
             console.log(err)

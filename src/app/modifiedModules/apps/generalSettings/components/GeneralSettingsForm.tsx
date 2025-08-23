@@ -7,105 +7,118 @@ import ReactLoading from "react-loading";
 import { useTranslation } from 'react-i18next'
 
 function GeneralSettingsForm(props:any) {
-    const {data}=props
-    const {t} = useTranslation()
-    const [isLoading,setIsLoading]=useState(false)
-    const [mainBgColor,setMainBgColor]=useState('')
-    const [mainTextColor,setMainTextColor]=useState('')
-    const [contactEmail,setContactEmail]=useState('')
-    const [contactPhone,setContactPhone]=useState('')
-    const [contactWhatsAppPhone,setContactWhatsappPhone]=useState('')
-    const [facebookLink,setFacebookLink]=useState('')
-    const [twitterLink,setTwitterLink]=useState('')
-    const [instagramLink,setInstagramLink]=useState('')
-    const [shippingCharges,setShippingCharges]=useState('')
-    const [vatValue,setVatValue]=useState('')
-    const [tiktokLink,setTiktokLink]=useState('')
-    const [isProjectInFactoryMode,setIsProjectInFactoryMode]=useState('')
-    const [isOnlinePaymentActive,setIsOnlinePaymentActive]=useState('')
-    const [isCashPaymentActive,setIsCashPaymentActive]=useState('')
-    const [image,setImage]=useState<any>([])
-    function handleUploadedImage(e:any){
-      let files =e.target.files
-      files = [...files ].map(file =>
-          Object.assign(file, {
-              preview: URL.createObjectURL(file),
-          })
-      )
-      setImage(files[0])
-    }
-    useEffect(()=>{
-        setMainBgColor(data?.project_main_background_color)
-        setMainTextColor(data?.project_main_text_color)
-        setContactEmail(data?.project_email_address)
-        setContactPhone(data?.project_phone_number)
-        setContactWhatsappPhone(data?.project_whats_app_number)
-        setFacebookLink(data?.project_facebook_link)
-        setTwitterLink(data?.project_twitter_link)
-        setInstagramLink(data?.project_instagram_link)
-        setShippingCharges(data?.shipping_chargers)
-        setVatValue(data?.vat_value)
-        setTiktokLink(data?.tiktok_link)
-        setIsProjectInFactoryMode(data?.is_project_In_factory_mode)
-        setIsOnlinePaymentActive(data?.is_online_payment_active)
-        setIsCashPaymentActive(data?.is_cash_payment_active)
-        setImage(data?.project_logo)
-    },[data])
-    
-    function validateInputs(){
-        let status =true
-        // if(!mainBgColor){
-        // toast.error('Main Background Color Is Required')
-        // status=false
-        // }
-        // if(!mainTextColor){
-        // toast.error('Main Text Color Is Required')
-        // status=false
-        // }
-        // if(!contactEmail){
-        // toast.error('Contact Email Is Required')
-        // status=false
-        // }
-        // if(!contactPhone){
-        // toast.error('Contact Phone Is Required')
-        // status=false
-        // }
-        return status
-    }
+    const { data } = props
+  const { t } = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
 
-    function updateSettings(){
-        if(!validateInputs()) {return}
+  // Existing states
+  const [mainBgColor, setMainBgColor] = useState('')
+  const [mainTextColor, setMainTextColor] = useState('')
+  const [contactEmail, setContactEmail] = useState('')
+  const [contactPhone, setContactPhone] = useState('')
+  const [contactWhatsAppPhone, setContactWhatsappPhone] = useState('')
+  const [facebookLink, setFacebookLink] = useState('')
+  const [twitterLink, setTwitterLink] = useState('')
+  const [instagramLink, setInstagramLink] = useState('')
+  const [shippingCharges, setShippingCharges] = useState('')
+  const [vatValue, setVatValue] = useState('')
+  const [tiktokLink, setTiktokLink] = useState('')
+  const [isProjectInFactoryMode, setIsProjectInFactoryMode] = useState('')
+  const [isOnlinePaymentActive, setIsOnlinePaymentActive] = useState('')
+  const [isCashPaymentActive, setIsCashPaymentActive] = useState('')
+  const [image, setImage] = useState<any>([])
 
-        setIsLoading(true)
-        const formData  = new FormData()
-        // formData.append('project_logo',image)
-        formData.append('project_main_background_color',mainBgColor)
-        formData.append('project_main_text_color',mainTextColor)
-        formData.append('project_email_address',contactEmail)
-        formData.append('project_phone_number',contactPhone)
-        formData.append('project_whats_app_number',contactWhatsAppPhone)
-        formData.append('project_facebook_link',facebookLink)
-        formData.append('project_twitter_link',twitterLink)
-        formData.append('project_instagram_link',instagramLink)
-        formData.append('shipping_chargers',shippingCharges)
-        // formData.append('vat_value',vatValue)
-        // formData.append('tiktok_link',tiktokLink)
-        // formData.append('is_project_In_factory_mode',isProjectInFactoryMode)
-        formData.append('is_online_payment_active',isOnlinePaymentActive)
-        formData.append('is_cash_payment_active',isCashPaymentActive)
-        
-        axiosConfig.put(`/settings/update-settings`,formData,{
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then(res=>{
-            setIsLoading(false)
-            toast.success(`General Settings Updated Successfully`)
-        }).catch(err=>{
-            setIsLoading(false)
-            toast.error('Something went wrong')
-        })
-    }
+  const [logoImage, setLogoImage] = useState<any>([])
+  const [productPageImage, setProductPageImage] = useState<any>([])
+  // New translation states
+  const [homePageUpperTextEn, setHomePageUpperTextEn] = useState('')
+  const [homePageFooterTextEn, setHomePageFooterTextEn] = useState('')
+  const [homePageUpperTextAr, setHomePageUpperTextAr] = useState('')
+  const [homePageFooterTextAr, setHomePageFooterTextAr] = useState('')
+
+//   function handleUploadedImage(e: any) {
+//     let files = e.target.files
+//     files = [...files].map(file =>
+//       Object.assign(file, {
+//         preview: URL.createObjectURL(file),
+//       })
+//     )
+//     setImage(files[0])
+//   }
+ function handleUploadedImage(e: any, setter: any) {
+    let files = e.target.files
+    files = [...files].map(file =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    )
+    setter(files[0])
+  }
+  useEffect(() => {
+    setMainBgColor(data?.project_main_background_color)
+    setMainTextColor(data?.project_main_text_color)
+    setContactEmail(data?.project_email_address)
+    setContactPhone(data?.project_phone_number)
+    setContactWhatsappPhone(data?.project_whats_app_number)
+    setFacebookLink(data?.project_facebook_link)
+    setTwitterLink(data?.project_twitter_link)
+    setInstagramLink(data?.project_instagram_link)
+    setShippingCharges(data?.shipping_chargers)
+    setVatValue(data?.vat_value)
+    setTiktokLink(data?.tiktok_link)
+    setIsProjectInFactoryMode(data?.is_project_In_factory_mode)
+    setIsOnlinePaymentActive(data?.is_online_payment_active)
+    setIsCashPaymentActive(data?.is_cash_payment_active)
+    // setImage(data?.project_logo)
+    setLogoImage(data?.project_logo)
+    setProductPageImage(data?.product_page_image)
+
+    // translations
+    setHomePageUpperTextEn(data?.homePageUpperText_en || '')
+    setHomePageFooterTextEn(data?.homePageFooterText_en || '')
+    setHomePageUpperTextAr(data?.homePageUpperText_ar || '')
+    setHomePageFooterTextAr(data?.homePageFooterText_ar || '')
+  }, [data])
+
+  function updateSettings() {
+    setIsLoading(true)
+    const formData = new FormData()
+    // if (image) formData.append('project_logo', image)
+    if (logoImage) formData.append('project_logo', logoImage)
+    if (productPageImage) formData.append('product_page_image', productPageImage)
+    formData.append('project_main_background_color', mainBgColor || '')
+    formData.append('project_main_text_color', mainTextColor || '')
+    formData.append('project_email_address', contactEmail || '')
+    formData.append('project_phone_number', contactPhone || '')
+    formData.append('project_whats_app_number', contactWhatsAppPhone || '')
+    formData.append('project_facebook_link', facebookLink || '')
+    formData.append('project_twitter_link', twitterLink || '')
+    formData.append('project_instagram_link', instagramLink || '')
+    formData.append('shipping_chargers', shippingCharges || '')
+    formData.append('is_online_payment_active', isOnlinePaymentActive || '')
+    formData.append('is_cash_payment_active', isCashPaymentActive || '')
+
+    // add translation fields
+    formData.append('homePageUpperText_en', homePageUpperTextEn)
+    formData.append('homePageFooterText_en', homePageFooterTextEn)
+    formData.append('homePageUpperText_ar', homePageUpperTextAr)
+    formData.append('homePageFooterText_ar', homePageFooterTextAr)
+
+    axiosConfig
+      .put(`/settings/update-settings`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+      .then((res) => {
+        setIsLoading(false)
+        toast.success(`General Settings Updated Successfully`)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        toast.error('Something went wrong')
+      })
+  }
   return (
     <div className='p-5'>
         <Row>
@@ -135,6 +148,42 @@ function GeneralSettingsForm(props:any) {
                     }
                 </div>
             </Col> */}
+            <Col lg='12'>
+                <div>
+                    <label className='fs-5 text-muted mb-0'>{t('Project Logo')}</label>
+                    <input
+                    type='file'
+                    className='form-control form-control-solid mb-5 ps-14'
+                    onChange={(e:any) => handleUploadedImage(e, setLogoImage)}
+                    accept={'.jpg,.png,.gif,.jpeg'}
+                    />
+                    {logoImage && (logoImage?.preview || logoImage?.length !== 0) && (
+                    <div className='mb-5 d-flex align-items-center justify-content-between'>
+                        <img src={logoImage?.preview ? logoImage?.preview : logoImage} alt='logo' style={{width:'100px',height:'100px'}}/>
+                        <button onClick={()=> setLogoImage(null)} className='btn btn-danger ms-auto'>{t('Delete')}</button>
+                    </div>
+                    )}
+                </div>
+                </Col>
+
+                {/* product_page_image */}
+                <Col lg='12'>
+                <div>
+                    <label className='fs-5 text-muted mb-0'>{t('Product Page Image')}</label>
+                    <input
+                    type='file'
+                    className='form-control form-control-solid mb-5 ps-14'
+                    onChange={(e:any) => handleUploadedImage(e, setProductPageImage)}
+                    accept={'.jpg,.png,.gif,.jpeg'}
+                    />
+                    {productPageImage && (productPageImage?.preview || productPageImage?.length !== 0) && (
+                    <div className='mb-5 d-flex align-items-center justify-content-between'>
+                        <img src={productPageImage?.preview ? productPageImage?.preview : productPageImage} alt='product page' style={{width:'100px',height:'100px'}}/>
+                        <button onClick={()=> setProductPageImage(null)} className='btn btn-danger ms-auto'>{t('Delete')}</button>
+                    </div>
+                    )}
+                </div>
+                </Col>
             {/* <Col sm='6'>
                 <div>
                     <label className='fs-5 text-muted mb-0' htmlFor='additionalMilage'>{t('Is Project In Factory Mode')} </label>
@@ -262,7 +311,7 @@ function GeneralSettingsForm(props:any) {
                     />
                 </div>
             </Col>
-            {/* <Col sm='6'>
+            <Col sm='6'>
                 <div>
                     <label className='fs-5 text-muted mb-0' htmlFor='facebookLink'>{t('Facebook Link')}</label>
                     <input
@@ -275,7 +324,7 @@ function GeneralSettingsForm(props:any) {
                         onChange={(e) => setFacebookLink(e.target.value)}
                     />
                 </div>
-            </Col> */}
+            </Col>
             {/* <Col sm='6'>
                 <div>
                     <label className='fs-5 text-muted mb-0' htmlFor='twitterLink'>{t('Twitter Link')}</label>
@@ -318,6 +367,50 @@ function GeneralSettingsForm(props:any) {
                     />
                 </div>
             </Col>
+            <Col sm='6'>
+          <div>
+            <label className='fs-5 text-muted mb-0'>{t('Home Page Upper Text (EN)')}</label>
+            <input
+              type='text'
+              className='form-control form-control-solid mb-5 ps-14'
+              value={homePageUpperTextEn}
+              onChange={(e) => setHomePageUpperTextEn(e.target.value)}
+            />
+          </div>
+        </Col>
+        <Col sm='6'>
+          <div>
+            <label className='fs-5 text-muted mb-0'>{t('Home Page Footer Text (EN)')}</label>
+            <input
+              type='text'
+              className='form-control form-control-solid mb-5 ps-14'
+              value={homePageFooterTextEn}
+              onChange={(e) => setHomePageFooterTextEn(e.target.value)}
+            />
+          </div>
+        </Col>
+        <Col sm='6'>
+          <div>
+            <label className='fs-5 text-muted mb-0'>{t('Home Page Upper Text (AR)')}</label>
+            <input
+              type='text'
+              className='form-control form-control-solid mb-5 ps-14'
+              value={homePageUpperTextAr}
+              onChange={(e) => setHomePageUpperTextAr(e.target.value)}
+            />
+          </div>
+        </Col>
+        <Col sm='6'>
+          <div>
+            <label className='fs-5 text-muted mb-0'>{t('Home Page Footer Text (AR)')}</label>
+            <input
+              type='text'
+              className='form-control form-control-solid mb-5 ps-14'
+              value={homePageFooterTextAr}
+              onChange={(e) => setHomePageFooterTextAr(e.target.value)}
+            />
+          </div>
+        </Col>
             {/* <Col sm='6'>
                 <div>
                     <label className='fs-5 text-muted mb-0' htmlFor='vatValue'>{t('Vat Value')}</label>

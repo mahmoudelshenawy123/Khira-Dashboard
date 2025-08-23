@@ -28,6 +28,7 @@ const PrivateRoutes = () => {
   const GeneralSettingsPage = lazy(() => import('../modifiedModules/apps/generalSettings/GeneralSettingsPage'))
   const StaticPagesPage = lazy(() => import('../modifiedModules/apps/staticPages/StaticPagesPage'))
   const ContactUsPage = lazy(() => import('../modifiedModules/apps/contactUs/ContactUsPage'))
+  const SlidersPage = lazy(() => import('../modifiedModules/apps/sliders/ItemsPage'))
 
   const LoginPage = lazy(() => import('../modifiedModules/LoginPage/LoginPage'))
 
@@ -160,6 +161,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <GeneralSettingsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/sliders/*'
+          element={
+            <SuspensedView>
+              <SlidersPage />
             </SuspensedView>
           }
         />
