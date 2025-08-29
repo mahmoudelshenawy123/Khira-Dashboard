@@ -17,6 +17,8 @@ const SIEZE_MODAL = (id:any)=>{
         title_en:'',
         title_ar:'',
         price:'',
+        price_before_discount:'',
+        quantity:'',
     }
 }
 function AddUpdateCarForm() {
@@ -209,6 +211,8 @@ function AddUpdateCarForm() {
             formData.append(`sizes[${index}][title_en]`,size?.title_en)
             formData.append(`sizes[${index}][title_ar]`,size?.title_ar)
             formData.append(`sizes[${index}][price]`,size?.price)
+            formData.append(`sizes[${index}][price_before_discount]`,size?.price_before_discount)
+            formData.append(`sizes[${index}][quantity]`, size?.quantity)
         })
         if(car){
             axiosConfig.put(`/product/update-product/${car.id}`,formData,{
@@ -376,6 +380,33 @@ function AddUpdateCarForm() {
                                     id={`sizePrice${index}`}
                                     value={size?.price}
                                     onChange={(e) => handleChangeSize(e.target.value,'price',index)}
+                                />
+                            </div>
+                        </Col>
+                        <Col sm='6'>
+                            <div>
+                                <label className='fs-5 text-muted mb-0' htmlFor={`sizePriceBeforeDiscount${index}`}>{t("Price Before Discount")}</label>
+                                <input
+                                    type='Number'
+                                    data-kt-user-table-filter='search'
+                                    className='form-control form-control-solid mb-5 ps-14'
+                                    placeholder={`${t('Type Price Before Discount')}`}
+                                    id={`sizePriceBeforeDiscount${index}`}
+                                    value={size?.price_before_discount}
+                                    onChange={(e) => handleChangeSize(e.target.value,'price_before_discount',index)}
+                                />
+                            </div>
+                        </Col>
+                        <Col sm='6'>
+                            <div>
+                                <label className='fs-5 text-muted mb-0' htmlFor={`sizeQuantity${index}`}>{t("Quantity")}</label>
+                                <input
+                                type='Number'
+                                className='form-control form-control-solid mb-5 ps-14'
+                                placeholder={`${t('Type quantity')}`}
+                                id={`sizeQuantity${index}`}
+                                value={size?.quantity}
+                                onChange={(e) => handleChangeSize(e.target.value, 'quantity', index)}
                                 />
                             </div>
                         </Col>
