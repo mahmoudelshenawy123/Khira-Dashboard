@@ -68,21 +68,23 @@ function AddUpdateCarForm() {
     }
 
     async function handleUploadedImage(e:any){
-        let image:any = await new Promise((resolve) => {
-            Resizer.imageFileResizer(
-                e.target.files[0],
-                520,
-                520,
-                "JPEG",
-                40,
-                0,
-                (uri) => {
-                    console.log(uri)
-                    resolve(uri);
-                },
-                "file"
-            );
-        });
+        let image = e.target.files[0];
+        // let image:any = await new Promise((resolve) => {
+        //     Resizer.imageFileResizer(
+        //         e.target.files[0],
+        //         520,
+        //         520,
+        //         "JPEG",
+        //         100,
+        //         0,
+        //         (uri) => {
+        //             console.log(uri)
+        //             resolve(uri);
+        //         },
+        //         "file"
+        //     );
+        // });
+        // console.log("e.target.files[0]", e.target.files[0], image)
         Object.assign(image, {
             preview: URL.createObjectURL(image),
         })
@@ -96,22 +98,23 @@ function AddUpdateCarForm() {
             toast.error('You Can\'t upload more than 15 images')
             return
         }
-        files = await Promise.all([...files ].map(async(file) =>{
-            let image:any = await new Promise((resolve) => {
-                Resizer.imageFileResizer(
-                    file,
-                    520,
-                    520,
-                    "JPEG",
-                    40,
-                    0,
-                    (uri) => {
-                        console.log(uri)
-                        resolve(uri);
-                    },
-                    "file"
-                );
-            });
+        files = await Promise.all([...files].map(async(file) =>{
+            let image = file;
+            // let image:any = await new Promise((resolve) => {
+            //     Resizer.imageFileResizer(
+            //         file,
+            //         520,
+            //         520,
+            //         "JPEG",
+            //         100,
+            //         0,
+            //         (uri) => {
+            //             console.log(uri)
+            //             resolve(uri);
+            //         },
+            //         "file"
+            //     );
+            // });
             Object.assign(image, {
                 preview: URL.createObjectURL(image),
             })
