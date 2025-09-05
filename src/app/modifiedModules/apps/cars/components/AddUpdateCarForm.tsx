@@ -99,22 +99,22 @@ function AddUpdateCarForm() {
             return
         }
         files = await Promise.all([...files].map(async(file) =>{
-            let image = file;
-            // let image:any = await new Promise((resolve) => {
-            //     Resizer.imageFileResizer(
-            //         file,
-            //         520,
-            //         520,
-            //         "JPEG",
-            //         100,
-            //         0,
-            //         (uri) => {
-            //             console.log(uri)
-            //             resolve(uri);
-            //         },
-            //         "file"
-            //     );
-            // });
+            // let image = file;
+            let image:any = await new Promise((resolve) => {
+                Resizer.imageFileResizer(
+                    file,
+                    520,
+                    520,
+                    "JPEG",
+                    70,
+                    0,
+                    (uri) => {
+                        console.log(uri)
+                        resolve(uri);
+                    },
+                    "file"
+                );
+            });
             Object.assign(image, {
                 preview: URL.createObjectURL(image),
             })
